@@ -1,13 +1,10 @@
 <?php
 
-use Laudis\Neo4j\Authentication\Authenticate;
-use Laudis\Neo4j\ClientBuilder;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Factory\AppFactory;
+// use Laudis\Neo4j\Authentication\Authenticate;
+// use Laudis\Neo4j\ClientBuilder;
 
+require 'vendor/autoload.php';
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '\vendor\autoload.php';
 
 function connectNEO4J()
 {
@@ -34,13 +31,36 @@ function connectNEO4J()
     //     ->withDriver('default', $uri, $auth)
     //     ->build();
 
-    $client = Laudis\Neo4j\ClientBuilder::create()
-    // ->addHttpConnection('backup', 'http://neo4j:18120553@localhost')
-    // ->addBoltConnection('default', 'bolt://neo4j:18120553@localhost')
-    // ->setDefaultConnection('default')
-    ->withDriver('default', 'bolt://neo4j:18120553@localhost:7687')
+
+    // $client = Laudis\Neo4j\ClientBuilder::create()
+    // ->withDriver('default', 'bolt://qltiemchung:18120553@localhost/qltiemchung')
+    // ->build();
+
+
+
+    // A builder is responsible for configuring the client on a high level.
+    $builder = Laudis\Neo4j\ClientBuilder::create()
+    ->withDriver('default', 'bolt://qltiemchung:18120553@localhost/qltiemchung')
     ->build();
-    
+    // A client manages the drivers as configured by the builder.
+    $client = $builder->build();
+    // A driver manages connections and sessions.
+    $driver = $client->getDriver('default');
+    // A session manages transactions.
+    $session = $driver->createSession();
+    // A transaction is the atomic unit of the driver where are the cypher queries are chained.
+    $transaction = $session->beginTransaction();
+    // A transaction runs the actual queries
+    // $transaction->run('MATCH (x) RETURN count(x)');
+
+
+    // $client = Laudis\Neo4j\ClientBuilder::create()
+    // // ->addHttpConnection('backup', 'http://neo4j:18120553@localhost')
+    // ->addBoltConnection('default', 'bolt://qltiemchung:18120553@localhost:7687')
+    // ->setDefaultConnection('default')
+    // // ->withDriver('default', 'bolt://qltiemchung:18120553@localhost:7687/qltiemchung')
+    // ->build();
+
     
     // try 
     // {
@@ -54,21 +74,16 @@ function connectNEO4J()
     // {
     //     die( "Couldn't connect to Neo4J" );
     // }
-    return $client;
+    return $transaction;
 }
+
 
 function connectMongo()
 {
-    // $m = new MongoDB\Driver\Manager('mongodb+srv://admin:admin@tiemchungdb.4c4y5.mongodb.net/test');
-    // $connection = new MongoClient();
-    // $db = $connection->TiemChungDB;
+    $client = new MongoDB\Client;
 
-    // $db = new Mongo('mongodb+srv://admin:admin@tiemchungdb.4c4y5.mongodb.net/test');
+    $TiemChungDB = $client->TiemChungDB; 
 
-    $m = new MongoDB\Driver\Manager('mongodb+srv://admin:admin@tiemchungdb.4c4y5.mongodb.net/test');
-
-    $db = $m->TiemChungDB;
-
-    return $db;
+    return $TiemChungDB;
 }
 ?>

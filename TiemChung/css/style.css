@@ -11,7 +11,8 @@ body
 }
 
 #header-text{
-    color: white;
+    color: #FF9900;
+    font-weight: bold;
     text-align: center;
     margin-top: 10px;
     margin-left: 50px;
@@ -61,14 +62,14 @@ body
 #logo{
     height: 70px;
     width: 320px;
-    margin-left: -30.5%;
+    margin-left: -31.25%;
     display: inline-block;
 }
 
 #footer-text{
     display: inline-block;
     margin-top: 0%;
-    color: white;
+    color: red;
     text-align: center;
     margin-top: 0px;
     height: 50px;
@@ -91,7 +92,7 @@ body
     padding-right: 10px; 
     float:left;
     width: 300px;
-    background-color: #CCFFCC;
+    background-color: #00CCFF;
     text-align: left;
     height: auto;
     

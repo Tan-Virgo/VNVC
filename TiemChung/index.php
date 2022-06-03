@@ -24,28 +24,22 @@ switch ($action)
     case "banggia":
         $controller = new VacxinController();
         $controller->listVacxin();
-        require("./template/template.phtml");
         break;
     case "dangkytiem":
         
-        require("./template/template.phtml");
         break;
     case "datmua": 
         
-        require("./template/template.phtml");
         break; 
     case "vacxintreem": 
         
-        require("./template/template.phtml");
         break;  
     case "timtrungtam": 
         $controller = new TrungTamController();
         $controller->listTrungTam();
-        require("./template/template.phtml");
         break; 
     case "tuvan": 
         
-        require("./template/template.phtml");
         break; 
     default:
         $controller = new HomeController();
