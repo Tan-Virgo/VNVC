@@ -5,10 +5,15 @@ if(!isset($_SESSION))
 } 
 
 require_once("./controller/Home.php");
+
 require_once("./controller/VacxinController.php");
 require_once("./model/Vacxin.php");
+
 require_once("./controller/TrungTamController.php");
 require_once("./model/TrungTam.php");
+
+require_once("./controller/PhieuDangKyTiemController.php");
+require_once("./model/PhieuDangKyTiem.php");
 
 require_once("config/dbconnect.php"); 
 
@@ -26,7 +31,12 @@ switch ($action)
         $controller->listVacxin();
         break;
     case "dangkytiem":
-        
+        $controller = new PhieuDangKyTiemController();
+        $controller->showtoaddphieudangkytiem();
+        break;
+    case "dangky":
+        $controller = new PhieuDangKyTiemController();
+        $controller->addphieudangkytiem();
         break;
     case "datmua": 
         

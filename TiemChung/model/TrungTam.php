@@ -96,6 +96,27 @@ class TrungTamModel
 
         return $dstrungtam;
     }
+
+    public static function getonecenter($tentt)
+    {
+        $db = connectMongo();
+        $collectionTrungTam = $db->TrungTam;
+
+        $document = $collectionTrungTam->find(['TenTT' => $tentt]);
+
+        $tt = new TrungTamModel();
+        $tt->MaTT = $document["MaTT"];
+        $tt->TenTT = $document["TenTT"];
+        $tt->SDT = $document["SDT"];
+        $tt->TinhThanh = $document["TinhThanh"];
+        $tt->QuanHuyen = $document["QuanHuyen"];
+        $tt->PhuongXa = $document["PhuongXa"];
+        $tt->SoNha = $document["SoNha"];
+
+        PRINT $tt->TenTT . ' ' . $tt->TinhThanh;
+
+        return $tt;
+    }
 }
 
 

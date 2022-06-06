@@ -1,80 +1,67 @@
 <?php
-
-// use Laudis\Neo4j\Authentication\Authenticate;
-// use Laudis\Neo4j\ClientBuilder;
-
 require 'vendor/autoload.php';
 
-
-function connectNEO4J()
+function connectNeo4J()
 {
-    // $neo4jVersion = getenv('NEO4J_VERSION');
-    // $neo4jVersion = $neo4jVersion === false ? '' : $neo4jVersion;
-
-    // $database = getenv('NEO4J_DATABASE');
-    // $database = $database === false ? 'movies' : $database;
-
-    // $uri = getenv('NEO4J_URI');
-    // $uri = $uri === false ? 'neo4j+s://demo.neo4jlabs.com' : $uri;
-    // if (!str_starts_with($neo4jVersion, '3')) {
-    //     $uri = sprintf("%s?database=%s", $uri, $database);
-    // }
-
-    // $user = getenv('NEO4J_USER');
-    // $user = $user === false ? 'movies' : $user;
-
-    // $password = getenv('NEO4J_PASSWORD');
-    // $password = $password === false ? 'movies' : $password;
-
-    // $auth = Authenticate::basic($user, $password);
-    // $client = ClientBuilder::create()
-    //     ->withDriver('default', $uri, $auth)
-    //     ->build();
-
-
-    // $client = Laudis\Neo4j\ClientBuilder::create()
-    // ->withDriver('default', 'bolt://qltiemchung:18120553@localhost/qltiemchung')
-    // ->build();
-
-
-
-    // A builder is responsible for configuring the client on a high level.
-    $builder = Laudis\Neo4j\ClientBuilder::create()
-    ->withDriver('default', 'bolt://qltiemchung:18120553@localhost/qltiemchung')
+  
+    $client = Laudis\Neo4j\ClientBuilder::create()
+    ->withDriver('default', 'bolt://qltiemchung:18120553@localhost')
     ->build();
-    // A client manages the drivers as configured by the builder.
-    $client = $builder->build();
-    // A driver manages connections and sessions.
-    $driver = $client->getDriver('default');
-    // A session manages transactions.
-    $session = $driver->createSession();
-    // A transaction is the atomic unit of the driver where are the cypher queries are chained.
-    $transaction = $session->beginTransaction();
-    // A transaction runs the actual queries
-    // $transaction->run('MATCH (x) RETURN count(x)');
+
+    $query = 'MATCH (N) RETURN N';
+    $result = $client->run(<<<'CYPHER'
+    MERGE (neo4j:Database {name: $dbName}) - [:HasRating] - (rating:Rating {value: 10})
+    RETURN neo4j, rating
+    CYPHER, ['dbName' => 'neo4j'])->first();
+
+    $neo4j = $result->get('neo4j');
+    $rating = $result->get('rating');
+
+    // Outputs "neo4j is 10 out of 10"
+    echo $neo4j->getProperty('name').' is '.$rating->getProperty('value') . ' out of 10!';
 
 
-    // $client = Laudis\Neo4j\ClientBuilder::create()
-    // // ->addHttpConnection('backup', 'http://neo4j:18120553@localhost')
-    // ->addBoltConnection('default', 'bolt://qltiemchung:18120553@localhost:7687')
-    // ->setDefaultConnection('default')
-    // // ->withDriver('default', 'bolt://qltiemchung:18120553@localhost:7687/qltiemchung')
-    // ->build();
 
-    
-    // try 
-    // {
-    //     $result = $client->run('RETURN 1 AS x');
-    //     if (1 === $result->firstRecord()->get('x')) 
-    //     {  
+    // $result_1 = $client->run($query);
+    // echo $result_1->get('N');
 
-    //     }
-    // } 
-    // catch(Exception $e) 
-    // {
-    //     die( "Couldn't connect to Neo4J" );
-    // }
-    return $transaction;
+//===================================================================
+//     $driver = $client->getDriver('default');
+// // A session manages transactions.
+// $session = $driver->createSession();
+// // A transaction is the atomic unit of the driver where are the cypher queries are chained.
+// $transaction = $session->beginTransaction();
+// // A transaction runs the actual queries
+// $transaction->run('MATCH (x) RETURN count(x)');
+
+
+//===============================================================
+// $results = $client->run('MATCH (node:Node) RETURN node, node.id AS id');
+
+// // A row is a \Laudis\Neo4j\Types\CypherMap
+// foreach ($results as $result) {
+//     // Returns a \Laudis\Neo4j\Types\Node
+//     $node = $result->get('node');
+
+//     echo $node->getAttribute('id');
+//     echo $result->get('id');
+// }
+
+
+
+// $results = $client->run(<<<'CYPHER'
+// MATCH (m:NhomBenh) 
+// RETURN m.TenNhomBenh AS title 
+// ORDER BY m.TenNhomBenh 
+// ASC LIMIT $limit
+// CYPHER, ['limit' => 10]);
+
+// foreach ($results as $result) {
+//     print '=';
+//     echo $result->get('title').PHP_EOL;
+// }
+
+
 }
 
 

@@ -79,7 +79,7 @@ body
 
 #content
 {
-    min-height: 550px;
+    min-height: 700px;
     /* overflow, background -> keep the columns in equal height */
     overflow: hidden;
     background: url("images/css/container-bd.png") repeat-y;
@@ -87,7 +87,7 @@ body
 
 #secondary
 {
-    min-height: 550px;
+    min-height: 700px;
     padding-left: 10px;
     padding-right: 10px; 
     float:left;
@@ -100,7 +100,7 @@ body
 
 #primary
 {
-    min-height: 550px;
+    min-height: 700px;
     text-align: left;
     float: right;
     width: 900px;
