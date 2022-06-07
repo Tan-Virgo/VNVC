@@ -15,6 +15,13 @@ require_once("./model/TrungTam.php");
 require_once("./controller/PhieuDangKyTiemController.php");
 require_once("./model/PhieuDangKyTiem.php");
 
+require_once("./controller/GoiVacxinController.php");
+require_once("./model/GoiVacxin.php");
+require_once("./model/VacxinOfGoiVacxin.php");
+
+require_once("./controller/TuVanController.php");
+require_once("./model/TuVan.php");
+
 require_once("config/dbconnect.php"); 
 
 $action = "";
@@ -30,6 +37,10 @@ switch ($action)
         $controller = new VacxinController();
         $controller->listVacxin();
         break;
+    case "chitietvacxin":
+        $controller = new VacxinController();
+        $controller->getVacxin();
+        break;
     case "dangkytiem":
         $controller = new PhieuDangKyTiemController();
         $controller->showtoaddphieudangkytiem();
@@ -42,14 +53,24 @@ switch ($action)
         
         break; 
     case "vacxintreem": 
-        
+        $controller = new GoiVacxinController();
+        $controller->listGoiVacxin();
+        break; 
+    case "XemDSVacxin": 
+        $controller = new GoiVacxinController();
+        $controller->getListVacxin();
         break;  
     case "timtrungtam": 
         $controller = new TrungTamController();
         $controller->listTrungTam();
         break; 
     case "tuvan": 
-        
+        $controller = new TuVanController();
+        $controller->listTuVan();
+        break; 
+    case "guicauhoi": 
+        $controller = new TuVanController();
+        $controller->guiTuVan();
         break; 
     default:
         $controller = new HomeController();

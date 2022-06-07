@@ -4,7 +4,7 @@ class PhieuDangKyTiemController
 {
     public function showtoaddphieudangkytiem()
     {
-        //$listvacxin = VacxinModel::listVacxin();
+        $listvacxin = VacxinModel::listVacxin();
         $listcenter = TrungTamModel::listTrungTam();
         $VIEW = "./view/DangKyTiem.phtml";
         require("./template/template.phtml");

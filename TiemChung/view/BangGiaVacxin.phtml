@@ -1,4 +1,12 @@
-
+<?php
+if (!function_exists('currency_format')) {
+    function currency_format($number, $suffix = 'đ') {
+        if (!empty($number)) {
+            return number_format($number, 0, ',', '.') . "{$suffix}";
+        }
+    }
+}
+?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -16,16 +24,17 @@
 </script>
 
 <h3>BẢNG GIÁ VACXIN</h3>
+<hr/>
 <form>
 <div>
     <table class="empty-table">
         <thead>
             <tr>
-                <th>TenVacxin</th>
-                <th>NuocSanXuat</th>
-                <th>GiaBanLe</th>
-                <th>GiaYeuCau</th>
-                <th>TinhTrang</th>
+                <th>Tên Vacxin</th>
+                <th>Nước Sản Xuất</th>
+                <th>Giá bán lẻ</th>
+                <th>Giá bán theo yêu cầu</th>
+                <th>Tình trạng</th>
                 <th></th>
             </tr>
         </thead>
@@ -78,11 +87,11 @@
                         <tr>
                             <td><?php echo $item->TenVacxin; ?></td>
                             <td><?php echo $item->NuocSanXuat; ?></td>
-                            <td><?php echo $item->GiaBanLe; ?></td>
-                            <td><?php echo $item->GiaYeuCau; ?></td>
-                            <td><?php echo $item->TinhTrang; ?></td>
+                            <td><?php echo currency_format($item->GiaBanLe); ?></td>
+                            <td><?php echo currency_format($item->GiaYeuCau); ?></td>
+                            <td><?php if ($item->TinhTrang === 1) echo "Còn hàng"; else echo "Hết hàng"; ?></td>
                             <td>
-                                <a href="?action=showVacxin&mavacxin=<?php echo $item->MaVacxin; ?>">Xem chi tiết Vacxin</a> &emsp;
+                                <a href="?action=chitietvacxin&mavacxin=<?php echo $item->MaVacxin; ?>">Xem chi tiết Vacxin</a> &emsp;
                             </td>
                         <tr>
 

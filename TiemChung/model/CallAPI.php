@@ -1,6 +1,5 @@
 <?php
 function callAPI($method, $url, $data){
-    phpinfo();
     $curl = curl_init();
     switch ($method){
         case "POST":
@@ -25,6 +24,8 @@ function callAPI($method, $url, $data){
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);     
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); 
     // EXECUTE:
     $result = curl_exec($curl);
     if(!$result){die("Connection Failure");}

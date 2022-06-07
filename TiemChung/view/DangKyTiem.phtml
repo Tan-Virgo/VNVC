@@ -123,7 +123,20 @@
         </tr>     
         <tr>
             <td>Vacxin</td>
-            <td><input id="Vacxin" name="Vacxin" type="text" value="" /></td>
+            <td>
+                <select name="Vacxin" class="Vacxin" id="Vacxin">
+                    <?php
+                        foreach ($listvacxin as $item)
+                        {
+                            ?>
+                                <option value='<?php echo $item->MaVacxin; ?>'>
+                                    <?php echo $item->TenVacxin; ?> 
+                                </option>
+                            <?php
+                        }
+                    ?>
+                </select>
+            </td>
         </tr>   
         <tr>
             <td>Trung tâm VNVC</td>

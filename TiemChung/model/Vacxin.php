@@ -36,27 +36,71 @@ require_once("./Model/CallAPI.php");
         
         public static function listVacxin()
         {
-            phpinfo();
             $url = "https://localhost:44350/api/vacxin";
 
             $get_data = callAPI('GET', $url, false);
             $response = json_decode($get_data, true);
             
-            // $dsVacxin = array();
+            $dsVacxin = array();
 
-            // if ($response) 
-            // {            
-            //     foreach ($response as $row) {
-            //         $vacxin = new VacxinModel();
-            //         //$vacxin->MaVacxin = $row["maNCC"];
+            if ($response) 
+            {            
+                foreach ($response as $row) {
+                    $vacxin = new VacxinModel();
+                    $vacxin->MaVacxin = $row["Values"]["MaVacxin"];
+                    $vacxin->TenVacxin = $row["Values"]["TenVacxin"];
+                    $vacxin->NuocSanXuat = $row["Values"]["NuocSanXuat"];
+                    $vacxin->GiaBanLe = $row["Values"]["GiaBanLe"];
+                    $vacxin->GiaYeuCau = $row["Values"]["GiaYeuCau"];
+                    $vacxin->TinhTrang = $row["Values"]["TinhTrang"];
+                    $vacxin->ChiTiet = $row["Values"]["ChiTiet"];
+                    $vacxin->ChongChiDinh = $row["Values"]["ChongChiDinh"];
+                    $vacxin->BaoQuan = $row["Values"]["BaoQuan"];
+                    $vacxin->MaNhomTuoi = $row["Values"]["MaNhomTuoi"];
+                    $vacxin->TenNhomTuoi = $row["Values"]["TenNhomTuoi"];
+                    $vacxin->MaNhomBenh = $row["Values"]["MaNhomBenh"];
+                    $vacxin->TenNhomBenh = $row["Values"]["TenNhomBenh"];
                     
-            //         print $row["Values"]["MaVacxin"];
-                    
-            //         $dsNCC[] = $ncc; //add an item into array
-            //     }
-            // }
+                    $dsVacxin[] = $vacxin; //add an item into array
+                }
+            }
 
-            //return $dsNCC;
+            return $dsVacxin;
+        }
+
+
+        public static function getVacxin($mavacxin)
+        {
+            $url = "https://localhost:44350/api/vacxin/" . $mavacxin;
+
+            $get_data = callAPI('GET', $url, false);
+            $response = json_decode($get_data, true);
+            
+            $dsVacxin = array();
+
+            if ($response) 
+            {            
+                foreach ($response as $row) {
+                    $vacxin = new VacxinModel();
+                    $vacxin->MaVacxin = $row["Values"]["MaVacxin"];
+                    $vacxin->TenVacxin = $row["Values"]["TenVacxin"];
+                    $vacxin->NuocSanXuat = $row["Values"]["NuocSanXuat"];
+                    $vacxin->GiaBanLe = $row["Values"]["GiaBanLe"];
+                    $vacxin->GiaYeuCau = $row["Values"]["GiaYeuCau"];
+                    $vacxin->TinhTrang = $row["Values"]["TinhTrang"];
+                    $vacxin->ChiTiet = $row["Values"]["ChiTiet"];
+                    $vacxin->ChongChiDinh = $row["Values"]["ChongChiDinh"];
+                    $vacxin->BaoQuan = $row["Values"]["BaoQuan"];
+                    $vacxin->MaNhomTuoi = $row["Values"]["MaNhomTuoi"];
+                    $vacxin->TenNhomTuoi = $row["Values"]["TenNhomTuoi"];
+                    $vacxin->MaNhomBenh = $row["Values"]["MaNhomBenh"];
+                    $vacxin->TenNhomBenh = $row["Values"]["TenNhomBenh"];
+                    
+                    $dsVacxin[] = $vacxin; //add an item into array
+                }
+            }
+
+            return $dsVacxin;
         }
     }
 ?>
