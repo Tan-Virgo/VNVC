@@ -22,6 +22,10 @@ require_once("./model/VacxinOfGoiVacxin.php");
 require_once("./controller/TuVanController.php");
 require_once("./model/TuVan.php");
 
+require_once("./controller/DonHangController.php");
+require_once("./model/DonHang.php");
+require_once("./model/VacxinChon.php");
+
 require_once("config/dbconnect.php"); 
 
 $action = "";
@@ -49,9 +53,17 @@ switch ($action)
         $controller = new PhieuDangKyTiemController();
         $controller->addphieudangkytiem();
         break;
-    case "datmua": 
-        
+    case "showtoadddonhang": 
+        $controller = new DonHangController();
+        $controller->showtoadddonhang();
         break; 
+
+    case "datmua":    
+        $controller = new DonHangController();
+        $controller->datmua();
+        break; 
+
+
     case "vacxintreem": 
         $controller = new GoiVacxinController();
         $controller->listGoiVacxin();

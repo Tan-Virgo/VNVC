@@ -40,6 +40,7 @@ class PhieuDangKyTiemController
                 echo "<script type='text/javascript'>alert('Thêm thất bại');</script>";
         }
        
+        $listvacxin = VacxinModel::listVacxin();
         $listcenter = TrungTamModel::listTrungTam();
         $VIEW = "./view/DangKyTiem.phtml";
         require("./template/template.phtml");

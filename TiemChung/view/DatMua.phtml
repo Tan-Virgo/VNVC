@@ -1,0 +1,165 @@
+<?php
+    $listmavacxin = array();
+?>
+
+<script type="text/javascript">
+    function check()
+    {
+        if (document.getElementById("MaDK").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Nhập mã phiếu đăng ký!</b></i>";
+            return false;
+        }
+
+        if (document.getElementById("HoTenNguoiTiem").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Nhập họ tên người tiêm!</b></i>";
+            return false;
+        }
+
+        if (document.getElementById("NgaySinh").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Nhập ngày sinh!</b></i>";
+            return false;
+        }
+
+        if (document.getElementById("HoTenNguoiLienHe").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Nhập họ tên người liên hệ!</b></i>";
+            return false;
+        }
+
+        if (document.getElementById("SDT").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Nhập SDT!</b></i>";
+            return false;
+        }
+
+        if (document.getElementById("Vacxin").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Chọn Vacxin!</b></i>";
+            return false;
+        }
+
+        if (document.getElementById("TrungTam").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Chọn Trung tâm!</b></i>";
+            return false;
+        }
+
+        if (document.getElementById("NgayTiem").value  == "")
+        {
+            document.getElementById("message").innerHTML = "<i><b style='color:red'>Chọn ngày tiêm!</b></i>";
+            return false;
+        }
+
+        return true;
+    }
+
+    function chonmua()
+    {
+        mav = document.getElementById("Vacxin").value;
+        sl = document.getElementById("SoLuong").value;
+        if (document.getElementById("listVacxin").value != "")
+            document.getElementById("listVacxin").value = document.getElementById("listVacxin").value + " | " + mav + " - " + sl;
+        else
+            document.getElementById("listVacxin").value = mav + " - " + sl;
+    }
+</script>
+
+<h1>PHIẾU ĐẶT MUA VACXIN TỪ TRUNG TÂM VNVC</h1>
+<hr/>
+
+    <!-- <input type="hidden" name="action" value="chonmua" /> -->
+        <table>
+            <tr>
+                <td>Chọn Vacxin cần mua</td>
+                <td>
+                    <select name="Vacxin" class="Vacxin" id="Vacxin">
+                        <?php
+                            foreach ($listvacxin as $item)
+                            {
+                                ?>
+                                    <option value='<?php echo $item->MaVacxin; ?>'>
+                                        <?php echo $item->TenVacxin; ?> 
+                                    </option>
+                                <?php
+                            }
+                        ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            <td>Số lượng: </td>
+            <td><input id="SoLuong" name="SoLuong" type="text" value="" /></td>
+        </tr>   
+        </table>
+    <!-- <input type="submit" value="chonmua" style="width: 100px; margin-left:350px; margin-top:10px;" onclick="chomua()"/>  -->
+    <button style="width: 100px; height:30px; margin-left:350px; margin-top:10px;" onclick="chonmua()">Chọn mua</button>
+    <h3>Danh sách Vacxin chọn</h3>
+    
+
+
+
+ <form method ="POST" onsubmit="return check();">
+ 	<input type="hidden" name="action" value="datmua" />
+    <input id="listVacxin" name="listVacxin" type="text" value="" style="width: 500px; height: 35px;" />
+    <hr/><br/>
+    <table>
+        <tr>
+            <td>Mã đơn hàng: </td>
+            <td><input id="MaDH" name="MaDH" type="text" value="" /></td>
+        </tr>
+        <tr>
+            <td>Họ tên người mua:</td>
+            <td><input id="HoTenNguoiMua" name="HoTenNguoiMua" type="text" value=""/></td>                   
+        </tr>
+        <tr>
+            <td>Ngày sinh</td>
+            <td><input style="width:270px; height:30px;" id="NgaySinh" name="NgaySinh" type="date" value=""/></td>
+        </tr>
+        <tr>
+            <td>Giới tính</td>
+            <td>
+                <select name="GioiTinh" class="GioiTinh" id="GioiTinh">
+                    <option value='Nam'>Nam</option>
+                    <option value='Nữ'>Nữ</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Tỉnh thành</td>
+            <td><input id="TinhThanh" name="TinhThanh" type="text" value="" /></td>
+        </tr> 
+        <tr>
+            <td>Quận huyện</td>
+            <td><input id="QuanHuyen" name="QuanHuyen" type="text" value="" /></td>
+        </tr> 
+        <tr>
+            <td>Phường xã</td>
+            <td><input id="PhuongXa" name="PhuongXa" type="text" value="" /></td>
+        </tr>
+        <tr>
+            <td>Số nhà</td>
+            <td><input id="SoNha" name="SoNha" type="text" value="" /></td>
+        </tr>
+        <tr>
+            <td>Số điện thoại liên hệ</td>
+            <td><input id="SDT" name="SDT" type="text" value="" /></td>
+        </tr> 
+        <tr>
+            <td>Phương thức thanh toán</td>
+            <td>
+                <select name="PhuongThucThanhToan" class="PhuongThucThanhToan" id="PhuongThucThanhToan">
+                    <option value='Tiền mặt'>Tiền mặt</option>
+                    <option value='Chuyển khoản'>Chuyển khoản</option>
+                </select>
+            </td>
+        </tr> 
+                
+    </table>
+    <input type="submit" value="datmua" style="width: 200px; margin-left:250px; margin-top:20px;"/> 
+    <br/><br/>
+    <span id="message"> </span>
+</form>
+    
